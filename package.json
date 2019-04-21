@@ -1,9 +1,10 @@
 {
   "name": "@range3/mdtest",
-  "version": "1.0.0",
-  "description": "mdtest module for Node.js",
+  "version": "1.0.1",
+  "description": "A wrapper of the mdtest benchmark for Node.js",
   "main": "src/index.js",
-  "author": "range3 <white.line.oar@gmail.com>",
+  "repository": "https://github.com/range3/node-mdtest.git",
+  "author": "range3 (https://github.com/range3)",
   "license": "MIT",
   "scripts": {
     "test": "mocha"
