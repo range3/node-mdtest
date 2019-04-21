@@ -1,5 +1,5 @@
-# range3/mdtest
-> mdtest wrapper module for Node.js
+# @range3/mdtest
+> A wrapper of the mdtest benchmark for Node.js
 
 ## Install
 ``` bash
