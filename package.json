@@ -5,7 +5,6 @@
   "main": "src/index.js",
   "author": "range3 <white.line.oar@gmail.com>",
   "license": "MIT",
-  "private": true,
   "scripts": {
     "test": "mocha"
   },
