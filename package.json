@@ -1,6 +1,6 @@
 {
   "name": "@range3/mdtest",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A wrapper of the mdtest benchmark for Node.js",
   "main": "src/index.js",
   "repository": "https://github.com/range3/node-mdtest.git",
