@@ -1,0 +1,17 @@
+{
+  "name": "@range3/mdtest",
+  "version": "1.0.0",
+  "description": "mdtest module for Node.js",
+  "main": "src/index.js",
+  "author": "range3 <white.line.oar@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "tmp": "^0.1.0"
+  }
+}
