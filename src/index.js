@@ -85,9 +85,9 @@ class Mdtest {
     ])
 
     Object.assign(results.summary,
-      directory && {directory},
-      file && {file},
-      tree && {tree})
+      directory && { directory },
+      file && { file },
+      tree && { tree })
 
     return results
 
@@ -127,10 +127,15 @@ class Mdtest {
     this.mpirunPath = options.mpirunPath || 'mpirun'
     this.mdtestPath = options.mdtestPath || 'mdtest'
 
+    this._mpirunOptionsRaw = []
     this._mpirunOptions = Mdtest.DEFAULT_MPIRUN_OPTIONS
     this._mdtestOptions = {}
 
     this._hostFile = new HostFile()
+  }
+
+  mpirunOptionsRaw (raw) {
+    this._mpirunOptionsRaw = raw.slice(/\s+/)
   }
 
   mpirunOptions (options) {
@@ -148,7 +153,7 @@ class Mdtest {
 
   np (n) {
     n = n || Mdtest.DEFAULT_MPIRUN_OPTIONS['-np']
-    return this.mpirunOptions({'-np': n})
+    return this.mpirunOptions({ '-np': n })
   }
 
   mdtestOptions (options) {
@@ -167,7 +172,7 @@ class Mdtest {
   }
 
   numberOfItemsPerProcess (n) {
-    return this.mdtestOptions({'-n': n})
+    return this.mdtestOptions({ '-n': n })
   }
 
   n (n) {
@@ -175,7 +180,7 @@ class Mdtest {
   }
 
   unique (b = true) {
-    return this.mdtestOptions({'-u': !!b})
+    return this.mdtestOptions({ '-u': !!b })
   }
 
   onlyFiles () {
@@ -201,13 +206,13 @@ class Mdtest {
     })
     switch (phase) {
       case Mdtest.PHASE.write:
-        return this.mdtestOptions({'-C': true})
+        return this.mdtestOptions({ '-C': true })
       case Mdtest.PHASE.stat:
-        return this.mdtestOptions({'-T': true})
+        return this.mdtestOptions({ '-T': true })
       case Mdtest.PHASE.read:
-        return this.mdtestOptions({'-E': true})
+        return this.mdtestOptions({ '-E': true })
       case Mdtest.PHASE.delete:
-        return this.mdtestOptions({'-r': true})
+        return this.mdtestOptions({ '-r': true })
       default:
         throw new Error('invalid phase')
     }
@@ -242,16 +247,19 @@ class Mdtest {
       : null
 
     if (hostfile) {
-      this.mpirunOptions({'-hostfile': hostfile.name})
+      this.mpirunOptions({ '-hostfile': hostfile.name })
     }
 
     const args = [
+      ...this._mpirunOptionsRaw,
       ...this._convertToArray(this._mpirunOptions),
       this.mdtestPath,
       ...this._convertToArray(this._mdtestOptions),
     ]
 
+    // console.log(`${this.mpirunPath} ${args.join(' ')}`)
     const results = await execFile(this.mpirunPath, args)
+    const results = {}
 
     results.cmd = `${this.mpirunPath} ${args.join(' ')}`
     results.hostfile = this._hostFile.stringify()
